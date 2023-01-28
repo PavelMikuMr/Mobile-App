@@ -1,0 +1,26 @@
+body {
+  color: white;
+}
+.bulb-on {
+  background: yellow;
+}
+.bulb-off {
+  background: grey;
+}
+// .backdrop-blur {
+//   position: relative;
+//   z-index: 1;
+// }
+
+// .backdrop-blur::before {
+//   content: '';
+//   width: 10rem;
+//   height: 7rem;
+//   background: #79b869;
+//   position: absolute;
+//   filter: blur(75px);
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   z-index: -1;
+// }
