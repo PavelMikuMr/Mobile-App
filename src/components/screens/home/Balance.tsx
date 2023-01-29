@@ -6,9 +6,11 @@ import {
   Text
 } from '@chakra-ui/react'
 import { useProfile } from './../../../hooks/useProfile'
+import { useMainQuery } from '../../../hooks/useMainQuery'
 
 const Balance = () => {
-  const { user } = useProfile()
+  // const { user } = useProfile()
+  const { user } = useMainQuery()
   return (
     <Center mt={'3rem'} position={'relative'}>
       <Box
@@ -28,9 +30,7 @@ const Balance = () => {
         }}
       >
         <Flex direction='column' align='center'>
-          <Heading fontSize='5xl'>
-            $ {user?.balance || 'undefined'}
-          </Heading>
+          <Heading fontSize='5xl'>${user?.balance}</Heading>
           <Text fontSize='xl' color='whiteAlpha.500'>
             Balance
           </Text>

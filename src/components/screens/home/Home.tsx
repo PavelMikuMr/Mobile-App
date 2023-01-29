@@ -26,11 +26,59 @@ import Balance from './Balance'
 import Icon from '../icon/Icon'
 import TransferModal from './transfer-money/TransferModal'
 import { useProfile } from './../../../hooks/useProfile'
-
+import {
+  useMainQuery,
+  useMainQueryUsers
+} from '../../../hooks/useMainQuery'
+import { instance } from '../../../api'
+import axios from 'axios'
 const Home = () => {
+  // //////////////////////////////////////////
+  const requestDebug = () => {
+    instance
+      .get('/users', {
+        params: {
+          id: 2
+        }
+      })
+      .then((response: any) => {
+        console.log(response.data)
+      })
+      .catch((error: any) => console.error(error))
+  }
+
+  const arrowRequest = async () => {
+    try {
+      const request = await instance.get('/users', {
+        params: {
+          name: 'Ryan Ericson'
+        }
+      })
+      console.log(request.data)
+      return request.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const ananas = arrowRequest()
+  console.log(ananas)
+  const arrowGet = async () => {
+    try {
+      const request = await instance.get('/users', {
+        params: {
+          id: 1
+        }
+      })
+      console.log(request.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  ///////////////////////////////////////////////////////////////
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { user } = useProfile()
-  console.log(user)
+  const { user } = useMainQuery()
+  const { users } = useMainQueryUsers()
   return (
     <>
       <Box
@@ -47,7 +95,7 @@ const Home = () => {
               Good Morning
             </Text>
             <Heading className='user-name' fontSize='2xl'>
-              {user?.name || 'undefined'}
+              {user?.name}
             </Heading>
           </Box>
           <Icon height={65} width={65}>
@@ -100,11 +148,33 @@ const Home = () => {
             <Text mt={'3'}>More</Text>
           </Box>
         </Flex>
-        <TransferModal
+        {/* <TransferModal
           isOpen={isOpen}
           onClose={onClose}
           size='full'
-        />
+        /> */}
+        <Box className='Button-axios-test'>
+          <button
+            onClick={() => console.log(users)}
+            style={{
+              background: 'red',
+              margin: '10px',
+              padding: '5px'
+            }}
+          >
+            request promise
+          </button>
+          <button
+            onClick={arrowGet}
+            style={{
+              background: 'green',
+              margin: '10px',
+              padding: '5px'
+            }}
+          >
+            request async
+          </button>
+        </Box>
       </Box>
     </>
   )
