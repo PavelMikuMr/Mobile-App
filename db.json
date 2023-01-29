@@ -4,19 +4,19 @@
       "id": 1,
       "name": "John Richardson",
       "balance": 8640,
-      "cardNumber": 3245234594322543
+      "card": 3245234594322543
     },
     {
       "id": 2,
       "name": "Ryan Ericson",
       "balance": 840,
-      "cardNumber": 4345234294356543
+      "card": 4345234294356543
     },
     {
       "id": 2,
       "name": "Larry Jeffrey",
       "balance": 8640,
-      "cardNumber": 4545243459432354
+      "card": 4545243459432354
     }
   ]
 }

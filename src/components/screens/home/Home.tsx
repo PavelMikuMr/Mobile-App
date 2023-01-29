@@ -16,27 +16,21 @@ import {
 } from '@fortawesome/free-regular-svg-icons'
 import {
   Box,
-  Center,
   Flex,
   Heading,
   useDisclosure,
-  Text,
-  useBoolean,
-  Button
+  Text
 } from '@chakra-ui/react'
 
 import Balance from './Balance'
 import Icon from '../icon/Icon'
-import ScaleFadeEx from './FadeEx'
 import TransferModal from './transfer-money/TransferModal'
-export const user = {
-  name: 'John Richardson',
-  balance: 8_640,
-  cardNumber: 3245_2345_9432_2543
-}
+import { useProfile } from './../../../hooks/useProfile'
 
 const Home = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { user } = useProfile()
+  console.log(user)
   return (
     <>
       <Box
@@ -52,7 +46,9 @@ const Home = () => {
             <Text fontSize='xl' color='whiteAlpha.500'>
               Good Morning
             </Text>
-            <Heading fontSize='2xl'>{user.name}</Heading>
+            <Heading className='user-name' fontSize='2xl'>
+              {user?.name || 'undefined'}
+            </Heading>
           </Box>
           <Icon height={65} width={65}>
             <FontAwesomeIcon icon={faUser} size='2xl' />
