@@ -26,7 +26,6 @@ import {
 import { formatCardNumber } from '../../../../utils/format-card-number'
 import { ITransferData } from './transfer.interface'
 import { useProfile } from '../../../../hooks/useProfile'
-import { useMainQuery } from './../../../../hooks/useMainQuery'
 
 interface TransferModalProps {
   isOpen: boolean

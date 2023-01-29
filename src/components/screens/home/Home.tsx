@@ -25,11 +25,11 @@ import {
 import Balance from './Balance'
 import Icon from '../icon/Icon'
 import TransferModal from './transfer-money/TransferModal'
-import { useProfile } from './../../../hooks/useProfile'
 import {
-  useMainQuery,
-  useMainQueryUsers
-} from '../../../hooks/useMainQuery'
+  useProfile,
+  useProfileUsers
+} from './../../../hooks/useProfile'
+
 import { instance } from '../../../api'
 import axios from 'axios'
 const Home = () => {
@@ -77,8 +77,8 @@ const Home = () => {
 
   ///////////////////////////////////////////////////////////////
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { user } = useMainQuery()
-  const { users } = useMainQueryUsers()
+  const { user } = useProfile()
+  const { users } = useProfileUsers()
   return (
     <>
       <Box

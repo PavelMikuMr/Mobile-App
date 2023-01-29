@@ -1,13 +1,13 @@
 import { instance } from '../api'
-import { IUsers } from '../types/user.interface'
+import { IUsers } from './../types/user.interface'
 
 export const UserService = {
   async getProfile() {
-    const response = await instance.get<IUsers>('/users/1')
+    const response = await instance.get<IUsers>('/user/1')
     return response.data
   },
   async getUsers() {
-    const response = await instance.get<IUsers[]>('/users')
+    const response = await instance.get<IUsers[]>(`/user`)
     return response.data.filter((user) => user.id !== 1)
   },
   async getUserByCard(card: number) {

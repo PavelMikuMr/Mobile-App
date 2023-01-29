@@ -1,4 +1,4 @@
-export interface MainInterface {
+export interface IUsers {
   id: number
   card: number
   balance: number
