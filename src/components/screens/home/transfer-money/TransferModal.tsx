@@ -26,6 +26,13 @@ import {
 import { formatCardNumber } from '../../../../utils/format-card-number'
 import { ITransferData } from './transfer.interface'
 import { useProfile } from '../../../../hooks/useProfile'
+import { useMutation, useQueryClient } from 'react-query'
+import {
+  ITransferMoney,
+  UserService
+} from './../../../../services/user.service'
+import { useState } from 'react'
+import SuccessAlert from './SuccessAlert'
 
 interface TransferModalProps {
   isOpen: boolean
@@ -42,18 +49,44 @@ const TransferModal = ({
     handleSubmit,
     register,
     control,
+    reset,
     formState: { errors, isSubmitting }
   } = useForm<ITransferData>({
     mode: 'onChange',
     defaultValues: {
-      balance: 0
+      amount: 0
     }
   })
 
-  const onSubmit: SubmitHandler<ITransferData> = (
-    data
-  ) => {}
+  const queryClient = useQueryClient()
+
+  const { mutate, isLoading } = useMutation(
+    ['transfer money'],
+    (data: ITransferMoney) =>
+      UserService.transferMoney(data),
+    {
+      async onSuccess() {
+        setIsSuccess(true)
+        reset()
+        await queryClient.invalidateQueries(['profile'])
+
+        setTimeout(() => {
+          setIsSuccess(false)
+        }, 3000)
+      }
+    }
+  )
+
+  const onSubmit: SubmitHandler<ITransferData> = (data) => {
+    if (!user?.card) return
+    mutate({
+      card: data.card,
+      amount: Number(data.amount),
+      fromCard: user.card
+    })
+  }
   const { user } = useProfile()
+  const [isSuccess, setIsSuccess] = useState(false)
   return (
     <>
       <Modal
@@ -64,6 +97,7 @@ const TransferModal = ({
       >
         <ModalOverlay />
         <ModalContent bg='#111'>
+          {isSuccess && <SuccessAlert />}
           <ModalHeader>Transfer your money</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -117,7 +151,7 @@ const TransferModal = ({
                   <Input
                     placeholder='Enter amount'
                     size='md'
-                    {...register('balance', {
+                    {...register('amount', {
                       required: 'This is required'
                     })}
                   />
@@ -130,6 +164,9 @@ const TransferModal = ({
                 <Button
                   variant='outline'
                   colorScheme='green'
+                  isLoading={isLoading}
+                  loadingText='Sending money...'
+                  type='submit'
                 >
                   Send money
                 </Button>

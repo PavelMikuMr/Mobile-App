@@ -31,7 +31,7 @@ import {
 } from './../../../hooks/useProfile'
 
 import { instance } from '../../../api'
-import axios from 'axios'
+
 const Home = () => {
   // //////////////////////////////////////////
   const requestDebug = () => {
@@ -60,8 +60,7 @@ const Home = () => {
       console.error(error)
     }
   }
-  const ananas = arrowRequest()
-  console.log(ananas)
+
   const arrowGet = async () => {
     try {
       const request = await instance.get('/users', {
@@ -148,22 +147,12 @@ const Home = () => {
             <Text mt={'3'}>More</Text>
           </Box>
         </Flex>
-        {/* <TransferModal
+        <TransferModal
           isOpen={isOpen}
           onClose={onClose}
           size='full'
-        /> */}
-        <Box className='Button-axios-test'>
-          <button
-            onClick={() => console.log(users)}
-            style={{
-              background: 'red',
-              margin: '10px',
-              padding: '5px'
-            }}
-          >
-            request promise
-          </button>
+        />
+        {/* <Box className='Button-axios-test'>
           <button
             onClick={arrowGet}
             style={{
@@ -174,7 +163,7 @@ const Home = () => {
           >
             request async
           </button>
-        </Box>
+        </Box> */}
       </Box>
     </>
   )

@@ -19,7 +19,7 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 ).render(
-  <React.StrictMode>
+  <>
     <ChakraProvider>
       <ThemeProvider>
         <QueryClientProvider client={queryClient}>
@@ -27,5 +27,5 @@ ReactDOM.createRoot(
         </QueryClientProvider>
       </ThemeProvider>
     </ChakraProvider>
-  </React.StrictMode>
+  </>
 )
