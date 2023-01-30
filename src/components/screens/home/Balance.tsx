@@ -5,9 +5,14 @@ import {
   Heading,
   Text
 } from '@chakra-ui/react'
-import { user } from './Home'
+import {
+  useProfile,
+  useProfileUsers
+} from './../../../hooks/useProfile'
 
 const Balance = () => {
+  // const { user } = useProfile()
+  const { user } = useProfile()
   return (
     <Center mt={'3rem'} position={'relative'}>
       <Box
@@ -27,7 +32,7 @@ const Balance = () => {
         }}
       >
         <Flex direction='column' align='center'>
-          <Heading fontSize='5xl'>$ {user.balance}</Heading>
+          <Heading fontSize='5xl'>${user?.balance}</Heading>
           <Text fontSize='xl' color='whiteAlpha.500'>
             Balance
           </Text>

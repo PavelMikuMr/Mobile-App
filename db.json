@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John Walter",
+      "balance": 2345,
+      "card": 3245234594322543
+    },
+    {
+      "id": 2,
+      "name": "Ryan Ericson",
+      "balance": 840,
+      "card": 4345234294356543
+    },
+    {
+      "id": 3,
+      "name": "Larry Jeffrey",
+      "balance": 8640,
+      "card": 4545243459432354
+    }
+  ]
+}

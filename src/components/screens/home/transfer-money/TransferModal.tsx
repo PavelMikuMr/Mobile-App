@@ -23,9 +23,9 @@ import {
   CheckboxIcon
 } from '@chakra-ui/react'
 
-import { user } from '../Home'
 import { formatCardNumber } from '../../../../utils/format-card-number'
 import { ITransferData } from './transfer.interface'
+import { useProfile } from '../../../../hooks/useProfile'
 
 interface TransferModalProps {
   isOpen: boolean
@@ -46,14 +46,14 @@ const TransferModal = ({
   } = useForm<ITransferData>({
     mode: 'onChange',
     defaultValues: {
-      amount: 0
+      balance: 0
     }
   })
 
   const onSubmit: SubmitHandler<ITransferData> = (
     data
   ) => {}
-
+  const { user } = useProfile()
   return (
     <>
       <Modal
@@ -73,7 +73,7 @@ const TransferModal = ({
                   placeholder='From card'
                   size='md'
                   defaultValue={formatCardNumber(
-                    user.cardNumber
+                    user?.card || 0
                   )}
                   disabled
                 />
@@ -117,7 +117,7 @@ const TransferModal = ({
                   <Input
                     placeholder='Enter amount'
                     size='md'
-                    {...register('amount', {
+                    {...register('balance', {
                       required: 'This is required'
                     })}
                   />

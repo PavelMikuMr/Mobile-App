@@ -16,27 +16,69 @@ import {
 } from '@fortawesome/free-regular-svg-icons'
 import {
   Box,
-  Center,
   Flex,
   Heading,
   useDisclosure,
-  Text,
-  useBoolean,
-  Button
+  Text
 } from '@chakra-ui/react'
 
 import Balance from './Balance'
 import Icon from '../icon/Icon'
-import ScaleFadeEx from './FadeEx'
 import TransferModal from './transfer-money/TransferModal'
-export const user = {
-  name: 'John Richardson',
-  balance: 8_640,
-  cardNumber: 3245_2345_9432_2543
-}
+import {
+  useProfile,
+  useProfileUsers
+} from './../../../hooks/useProfile'
 
+import { instance } from '../../../api'
+import axios from 'axios'
 const Home = () => {
+  // //////////////////////////////////////////
+  const requestDebug = () => {
+    instance
+      .get('/users', {
+        params: {
+          id: 2
+        }
+      })
+      .then((response: any) => {
+        console.log(response.data)
+      })
+      .catch((error: any) => console.error(error))
+  }
+
+  const arrowRequest = async () => {
+    try {
+      const request = await instance.get('/users', {
+        params: {
+          name: 'Ryan Ericson'
+        }
+      })
+      console.log(request.data)
+      return request.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const ananas = arrowRequest()
+  console.log(ananas)
+  const arrowGet = async () => {
+    try {
+      const request = await instance.get('/users', {
+        params: {
+          id: 1
+        }
+      })
+      console.log(request.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  ///////////////////////////////////////////////////////////////
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { user } = useProfile()
+  const { users } = useProfileUsers()
   return (
     <>
       <Box
@@ -52,7 +94,9 @@ const Home = () => {
             <Text fontSize='xl' color='whiteAlpha.500'>
               Good Morning
             </Text>
-            <Heading fontSize='2xl'>{user.name}</Heading>
+            <Heading className='user-name' fontSize='2xl'>
+              {user?.name}
+            </Heading>
           </Box>
           <Icon height={65} width={65}>
             <FontAwesomeIcon icon={faUser} size='2xl' />
@@ -104,11 +148,33 @@ const Home = () => {
             <Text mt={'3'}>More</Text>
           </Box>
         </Flex>
-        <TransferModal
+        {/* <TransferModal
           isOpen={isOpen}
           onClose={onClose}
           size='full'
-        />
+        /> */}
+        <Box className='Button-axios-test'>
+          <button
+            onClick={() => console.log(users)}
+            style={{
+              background: 'red',
+              margin: '10px',
+              padding: '5px'
+            }}
+          >
+            request promise
+          </button>
+          <button
+            onClick={arrowGet}
+            style={{
+              background: 'green',
+              margin: '10px',
+              padding: '5px'
+            }}
+          >
+            request async
+          </button>
+        </Box>
       </Box>
     </>
   )
